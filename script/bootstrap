@@ -8,8 +8,7 @@ main()
     G=`id -g`
 
     sed -i -e 's,UID=501,'UID="$U"',' Dockerfile
-    sed -i -e 's,UNAME=bacnh,'UNAME="$USER"',' Dockerfile
-    
+    sed -i -e 's,UNAME=bacnh,'UNAME="$USER"',' Dockerfile    
 }
 
 main

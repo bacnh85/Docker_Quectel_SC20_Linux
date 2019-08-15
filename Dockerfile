@@ -1,4 +1,3 @@
-# build image: docker build -t ngohaibac/ubuntu14.04 .
 FROM ubuntu:16.04
 ARG UID=501
 ARG UNAME=bacnh
