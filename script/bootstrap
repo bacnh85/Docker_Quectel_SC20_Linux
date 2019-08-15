@@ -1,0 +1,15 @@
+#!/bin/sh
+
+main()
+{
+    # Get UID, GID from the host and paste to docker container
+    echo "Setting the UID, GID to the DockerFile"
+    U=`id -u`
+    G=`id -g`
+
+    sed -i -e 's,UID=501,'UID="$U"',' Dockerfile
+    sed -i -e 's,UNAME=bacnh,'UNAME="$USER"',' Dockerfile
+    
+}
+
+main

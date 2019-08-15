@@ -1,0 +1,10 @@
+version: '2'
+services:
+  sc20-dev-machine:
+    build: .
+    image: ngohaibac/sc20-linux-dev
+    container_name: sc20-linux-dev
+    volumes:
+      - ./:/opt:cached
+      - ~/.ssh:/home/bacnh/.ssh:cached
+    tty: true
