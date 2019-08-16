@@ -25,6 +25,8 @@ Due to MacOS hard link issue, the build will be failed, thus new approach is:
 - Mount /opt/build as NFS mount
 - Change poky/conf/local.conf, TMPDIR, SSTATE_DIR to /opt/build. You can also change DL_DIR to /opt/build/downloads, so you can keep the download files outside of sc20_linux
 
+Images are located under build/tmp-glibc folder.
+
 ### Build SC20 Image
 
 Inside docker container, you can build SC20 Linux, just follow the Quectel getting started manual.
