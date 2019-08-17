@@ -1,4 +1,5 @@
 docs/
 sc20_linux/
 build/
+deploy/
 .DS_Store
