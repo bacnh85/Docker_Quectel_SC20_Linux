@@ -18,16 +18,6 @@ Then clone the sc20_linux:
 ```
 $ git clone ssh://git@gitlab.quectel.com:2222/quectel_smart/sc20_linux.git
 ```
-## Change build configuration
-
-Due to MacOS hard link issue, the build will be failed, thus new approach is:
-- Mount /opt as bind mount
-- Mount /opt/build as volume mount
-- Change poky/conf/local.conf, TMPDIR, SSTATE_DIR to /opt/build. You can also change DL_DIR to /opt/build/downloads, so you can keep the download files outside of sc20_linux
-
-Images are located under build/tmp-glibc folder.
-
-In Linux host, there is no issue, just mount only /opt folder
 
 ### Build SC20 Image
 
@@ -38,4 +28,10 @@ $ cd sc20_linux
 $ cd poky
 $ source build/conf/set_bb_env.sh
 $ build-8909-quec-smart-image
+```
+
+Note: as sc20_linux is located inside NFS mount, yocto build will give error, thus below cmd need to be executed to disable warning:
+
+```
+touch conf/sanity.conf
 ```

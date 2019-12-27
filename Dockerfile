@@ -18,9 +18,7 @@ RUN rm /bin/sh && ln -s bash /bin/sh \
      lib32ncurses5 x11proto-core-dev libx11-dev libxml-simple-perl libc6-dev libgl1-mesa-dev \
      tofrodos python-markdown libxml2-utils xsltproc openjdk-7-jdk  \
 # add user tux
-	&& useradd -m -u $UID -g staff -s /bin/bash $UNAME \
-     && mkdir /opt/build \
-     && chown -R ${UID}:staff /opt/build
+	&& useradd -m -u $UID -g staff -s /bin/bash $UNAME
 
 # Setup the environment
 RUN locale-gen en_US.UTF-8 && update-locale LC_ALL=en_US.UTF-8 \
@@ -30,7 +28,7 @@ ENV LC_ALL en_US.UTF-8
 
 USER $UNAME
 WORKDIR /opt
-VOLUME [ "/opt" "/opt/build" ] 
+VOLUME [ "/opt" ] 
 
 ENTRYPOINT /bin/bash
 CMD ["true"]

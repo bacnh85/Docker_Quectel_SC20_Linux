@@ -5,14 +5,13 @@ services:
     image: ngohaibac/sc20-linux-dev
     container_name: sc20-linux-dev
     volumes:
-      - ./:/opt:cached
-      - yocto-build:/opt/build
+      - "nfsmount:/opt"
       - ~/.ssh:/home/bacnh/.ssh:cached
     tty: true
 volumes:
-  yocto-build:
-#    driver: local
-#    driver_opts:
-#      type: nfs
-#      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
-#      device: ":${PWD}/build"
+  nfsmount:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":${PWD}"
