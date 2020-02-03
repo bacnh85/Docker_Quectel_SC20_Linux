@@ -3,3 +3,7 @@ sc20_linux/
 build/
 deploy/
 .DS_Store
+FW/
+SDK/
+patch/
+tools/

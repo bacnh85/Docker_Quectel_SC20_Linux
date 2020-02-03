@@ -13,5 +13,5 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
-      device: ":${PWD}"
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3,acregmin=1,acdirmin=1
+      device: ":/System/Volumes/Data/${PWD}"

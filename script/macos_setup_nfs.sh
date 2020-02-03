@@ -50,12 +50,9 @@ G=`id -g`
 sudo chown -R "$U":"$G" .
 
 echo "== Setting up nfs..."
-LINE="/Users -alldirs -mapall=$U:$G localhost"
+LINE="/System/Volumes/Data -alldirs -mapall=$U:$G localhost"
 FILE=/etc/exports
 sudo cp /dev/null $FILE
-grep -qF -- "$LINE" "$FILE" || sudo echo "$LINE" | sudo tee -a $FILE > /dev/null
-
-LINE="/Volumes/Work -alldirs -mapall=$U:$G localhost"
 grep -qF -- "$LINE" "$FILE" || sudo echo "$LINE" | sudo tee -a $FILE > /dev/null
 
 LINE="nfs.server.mount.require_resv_port = 0"

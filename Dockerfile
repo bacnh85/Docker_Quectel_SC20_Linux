@@ -16,7 +16,7 @@ RUN rm /bin/sh && ln -s bash /bin/sh \
      # Extra pkg
      gnupg flex bison gperf zip curl zlib1g-dev lib32z1 \ 
      lib32ncurses5 x11proto-core-dev libx11-dev libxml-simple-perl libc6-dev libgl1-mesa-dev \
-     tofrodos python-markdown libxml2-utils xsltproc openjdk-7-jdk  \
+     tofrodos python-markdown libxml2-utils xsltproc openjdk-7-jdk vim \
 # add user tux
 	&& useradd -m -u $UID -g staff -s /bin/bash $UNAME
 
