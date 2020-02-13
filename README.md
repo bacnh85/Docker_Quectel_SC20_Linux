@@ -10,7 +10,6 @@ Clone this repo:
 $ git clone https://github.com/ngohaibac/Quectel_SC20_Linux_Build
 $ cd Quectel_SC20_Linux_Build
 $ sh script/bootstrap
-# sh script/macos_setup_nfs.sh
 $ sh start.sh 
 ```
 Then clone the sc20_linux:
@@ -28,10 +27,4 @@ $ cd sc20_linux
 $ cd poky
 $ source build/conf/set_bb_env.sh
 $ build-8909-quec-smart-image
-```
-
-Note: as sc20_linux is located inside NFS mount, yocto build will give error, thus below cmd need to be executed to disable warning:
-
-```
-touch conf/sanity.conf
 ```
