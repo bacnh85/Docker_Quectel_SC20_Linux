@@ -1,3 +1,3 @@
 #!/bin/sh
 
-rsync -avt /opt/build/tmp-glibc/deploy/ /opt/deploy
+rsync -avt --delete /opt/build/tmp-glibc/deploy/ /opt/deploy

@@ -4,7 +4,6 @@ build/
 deploy/
 .DS_Store
 FW/
-SDK/
 patch/
 tools/
 images/
