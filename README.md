@@ -51,7 +51,7 @@ docker exec -it -u $UID quectel-sc20-linux /bin/bash
 As SC20 SDK is pulled by the container, there is a `SDK` folder in `/opt` folder inside container as well as in your working directory. Pls wait for a while as container is pulling SDK (about 552MB). In case, your private key has pass-phase protection, you need to manually clone the repo:
 
 ```
-
+git clone ssh://git@gitlab.quectel.com:2222/quectel_smart/sc20_linux.git /opt/SDK
 ```
 
 Final `/opt` folder looks like this:
