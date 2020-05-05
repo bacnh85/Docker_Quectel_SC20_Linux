@@ -1,49 +1,198 @@
-# Introduction
+## What is this image?
 
-How to build SC20 Linux under Docker environment. Tested in macOS Catalina 10.15.3
+[`bacnh85/quectel-sc20-linux`](https://hub.docker.com/r/bacnh85/quectel-sc20-linux) is a docker image for building Quectel SC20 Linux SDK.
 
-## Gettting started
+[Quectel SC20](https://www.quectel.com/product/sc20.htm) is a Quectel Smart Module based on Qualcomm Snapdragon MSM8909, Quad-core A7, up to 1.1GHZ. It has rich peripherals (Wifi, BT, GNSS, support LCM, Camera, ... ). SC20 supports Android 7.1.2, Android 8.0.1 or a Linux based on Yocto.
 
-Clone this repo:
+Embedded Linux is the best suitable for IoT application like IoT gateway, ...
+
+In order to obtain SC20 Linux SDK, pls help to coordinate with your local FAE and sales in your region. Then you will have access to [SC20 Linux SDK](https://gitlab.quectel.com:8080/quectel_smart/sc20_linux).
+
+![yocto_build.png](img/yocto_build.png)
+
+## Prepare
+
+1. Install [docker and docker-compose](https://docs.docker.com/get-docker/)
+2. Obtain access to SC20 Linux SDK, just add your public key to [your profile](https://gitlab.quectel.com:8080/profile/keys).
+
+If you don't have access to SC20 Linux SDK, then this repo is not for you.
+
+3. Your SC20 Linux working directory: this is where Linux SDK is stored. So you can access it from the host or use your favourite editor like VSCode. Let's assump it is: `~/sc20_linux/` which is located inside your home directory.
+
+## Usage
+
+1. Pull the docker image:
 
 ```
-$ git clone https://github.com/ngohaibac/Quectel_SC20_Linux_Build
-$ cd Quectel_SC20_Linux_Build
-$ sh script/bootstrap
-$ sh start.sh 
-```
-Then clone the sc20_linux:
-
-```
-$ git clone ssh://git@gitlab.quectel.com:2222/quectel_smart/sc20_linux.git
+docker pull bacnh85/quectel-sc20-linux
 ```
 
-*Note*: In order to obtain SC20 Linux SDK, pls help to coordinate with your local FAE and sales in your region.
+2. Create a working directory to store all SDK and build stuff:
 
-### Build SC20 Image
+```
+mkdir ~/sc20_linux
+cd ~/sc20_linux
+```
 
-#### Mac Users
+Then, create a container that mount the current directory to `opt` folder as well as `ssh` folder so the container itself is able to clone SDK by itself.
 
-SC20 Linux folders are organized as below:
+```
+docker run -d --name quectel-sc20-linux -e UID=`id -u` -e GID=`id -g` -v "$(pwd)":/opt -v ~/.ssh:/home/${UID}/.ssh bacnh85/quectel-sc20-linux
+```
+
+3. Compile SC20 Linux image
+
+Goto the container shell with same ID as host:
+
+```
+docker exec -it -u $UID quectel-sc20-linux /bin/bash
+```
+
+As SC20 SDK is pulled by the container, there is a `SDK` folder in `/opt` folder inside container as well as in your working directory. Pls wait for a while as container is pulling SDK (about 552MB).
+
+```
+1000@4632dbf7dd7e:/opt$ tree -L 2
+.
+└── SDK
+    ├── android_compat
+    ├── audio
+    ├── bootable
+    ├── bt-proprietary
+    ├── camera
+    ├── data
+    ├── data-ipa-cfg-mgr
+    ├── data-kernel
+    ├── data-oss
+    ├── device
+    ├── diag
+    ├── display
+    ├── disregard
+    ├── external
+    ├── ffmpeg_video
+    ├── filesystems
+    ├── frameworks
+    ├── fs-scrub-daemon
+    ├── gps
+    ├── hardware
+    ├── kernel
+    ├── mbim
+    ├── mcm-api
+    ├── mcm-core
+    ├── mcm-gps
+    ├── mdm-init
+    ├── mdm-ss-mgr
+    ├── OTA
+    ├── pmipv6
+    ├── poky
+    ├── prebuilt_HY11
+    ├── qcom-opensource
+    ├── qmi
+    ├── qmi-framework
+    ├── qtmultimedia
+    ├── quectel-app
+    ├── quectel-core
+    ├── remotefs
+    ├── shortcut-fe
+    ├── syncbuild.sh
+    ├── synergy-bt-proprietary
+    ├── system
+    ├── tcp-splice
+    ├── tftp
+    ├── thermal-engine
+    ├── time-services
+    ├── vendor
+    ├── video
+    ├── wlan
+    └── wlan-proprietary
+
+50 directories, 1 file
+```
+
+Then, straight forward to build your SC20 Linux followed the Quectel documents.
+
+```
+$ cd SDK/poky
+$ source build/conf/set_bb_env.sh
+$ build-8909-quec-smart-image
+```
+
+You may need to adjust BB_NUMBER_THREADS, PARALLEL_MAKE to reflect your horse PC.
+
+## Ugrade image
+
+To upgrade image, pls follow below instruction:
+
+```
+docker pull bacnh85/quectel-sc20-linux
+```
+
+Then, delete the old container:
+```
+docker stop quectel-sc20-linux
+docker rm quectel-sc20-linux -v
+```
+
+Then, follow the steps above to create container.
+
+## Usage - using Docker Compose
+
+For your convience, I have created a [Github repo](https://github.com/bacnh85/Docker_Quectel_SC20_Linux.git) contains [`docker-compose.yml`] (docker-composer.yml) and needed scripts.
+
+```
+git clone https://github.com/bacnh85/Docker_Quectel_SC20_Linux.git
+cd Docker_Quectel_SC20_Linux
+```
+
+Then, start the docker container and go to the shell:
+
+```
+sh start.sh
+```
+
+Inside the docker container, folder is organized as below:
 
 ```
 bacnh@17e4be739562:/opt$ tree -L 1
 .
-├── build                 <-- Volume mount folder
-├── deploy                <-- Output of build process
 ├── docker-compose.yml    
 ├── Dockerfile
 ├── docs                  <--- Documents
-├── images                <--- All images for SC20 modules, ...
 ├── README.md
-├── script
+├── script                <--- Scrips for working with SC20 Linux
 ├── SDK                   <-- SC20_Linux SDK
 └── start.sh
 ```
 
+Then, straight forward to build your SC20 Linux followed the Quectel documents.
+
+```
+$ cd SDK/poky
+$ source build/conf/set_bb_env.sh
+$ build-8909-quec-smart-image
+```
+
+### Usage for Mac users
+
 For Mac users, there could be many errors due to different file system, ... , volume mount is still the best approach:
 - Configure the build to store build data into volume mount
 - Sync output data into build folder
+
+Therefore, folder is oragnized as below:
+
+```
+bacnh@17e4be739562:/opt$ tree -L 1
+.
+├── build                 <-- Volume mount folder     (for Mac users)
+├── deploy                <-- Output of build process (for Mac users)
+├── docker-compose.yml
+├── Dockerfile
+├── docs                  <--- Documents
+├── images                <--- All images for SC20 modules, ... (for Mac users)
+├── README.md
+├── script                <--- Scrips for working with SC20 Linux
+├── SDK                   <-- SC20_Linux SDK
+└── start.sh
+```
 
 1) Modify the local.conf
 
@@ -94,14 +243,14 @@ deploy
 └── licenses
 ```
 
-### Linux user
+## Development
 
-Pls go straight forward to build your SC20 Linux follow the Quectel documents.
+For development, pls follow below steps:
 
 ```
-$ cd SDK/poky
-$ source build/conf/set_bb_env.sh
-$ build-8909-quec-smart-image
+git clone https://github.com/bacnh85/Docker_Quectel_SC20_Linux
+cd Docker_Quectel_SC20_Linux
+docker build docker-image -t bacnh85/quectel-sc20-linux
 ```
 
-*Note*: The Mac method also can be applied to Linux users to take advantage of volume mount in Docker container.
+In fact, you can always clone my repo and adjust your need or use my created scripts.

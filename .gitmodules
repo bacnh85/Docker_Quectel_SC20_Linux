@@ -1,3 +1,0 @@
-[submodule "SDK"]
-	path = SDK
-	url = ssh://git@gitlab.quectel.com:2222/quectel_smart/sc20_linux.git

@@ -1,0 +1,12 @@
+version: '2'
+services:
+  sc20-dev-machine:
+    image: bacnh85/quectel-sc20-linux
+    container_name: quectel-sc20-linux
+    volumes:
+      - ./:/opt:cached
+      - yocto-build:/opt/build
+      - ~/.ssh:/home/bacnh/.ssh:cached
+    tty: true
+volumes:
+  yocto-build:

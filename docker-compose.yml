@@ -1,13 +1,1 @@
-version: '2'
-services:
-  sc20-dev-machine:
-    build: .
-    image: ngohaibac/sc20-linux-dev
-    container_name: sc20-linux-dev
-    volumes:
-      - ./:/opt:cached
-      - yocto-build:/opt/build
-      - ~/.ssh:/home/bacnh/.ssh:cached
-    tty: true
-volumes:
-  yocto-build:
+docker-compose_linux.yml
