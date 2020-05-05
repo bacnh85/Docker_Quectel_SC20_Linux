@@ -8,12 +8,12 @@ Embedded Linux is the best suitable for IoT application like IoT gateway, ...
 
 In order to obtain SC20 Linux SDK, pls help to coordinate with your local FAE and sales in your region. Then you will have access to [SC20 Linux SDK](https://gitlab.quectel.com:8080/quectel_smart/sc20_linux).
 
-![yocto_build.png](img/yocto_build.png)
+<img src="https://raw.githubusercontent.com/bacnh85/Docker_Quectel_SC20_Linux/master/img/yocto_build.png" width=900>
 
 ## Prepare
 
 1. Install [docker and docker-compose](https://docs.docker.com/get-docker/)
-2. Obtain access to SC20 Linux SDK, just add your public key to [your profile](https://gitlab.quectel.com:8080/profile/keys).
+2. Obtain access to SC20 Linux SDK, just add your public key to [your profile](https://gitlab.quectel.com:8080/profile/keys). Pls make sure you don't have passphase to your private key, otherwise the script inside the container will faile.
 
 If you don't have access to SC20 Linux SDK, then this repo is not for you.
 
@@ -48,8 +48,13 @@ Goto the container shell with same ID as host:
 docker exec -it -u $UID quectel-sc20-linux /bin/bash
 ```
 
-As SC20 SDK is pulled by the container, there is a `SDK` folder in `/opt` folder inside container as well as in your working directory. Pls wait for a while as container is pulling SDK (about 552MB).
+As SC20 SDK is pulled by the container, there is a `SDK` folder in `/opt` folder inside container as well as in your working directory. Pls wait for a while as container is pulling SDK (about 552MB). In case, your private key has pass-phase protection, you need to manually clone the repo:
 
+```
+
+```
+
+Final `/opt` folder looks like this:
 ```
 1000@4632dbf7dd7e:/opt$ tree -L 2
 .
@@ -118,7 +123,7 @@ $ build-8909-quec-smart-image
 
 You may need to adjust BB_NUMBER_THREADS, PARALLEL_MAKE to reflect your horse PC.
 
-## Ugrade image
+## Upgrade image
 
 To upgrade image, pls follow below instruction:
 
