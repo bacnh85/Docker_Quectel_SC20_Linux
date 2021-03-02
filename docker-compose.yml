@@ -1,1 +1,13 @@
-docker-compose_linux.yml
+# Docker composer file for Linux User
+version: '3.2'
+services:
+  sc20-dev-machine:
+    image: bacnh85/quectel-sc20-linux
+    container_name: quectel-sc20-linux
+    environment: 
+      - UID=1000
+      - GID=1000
+    volumes:
+      - ./:/opt
+      - ~/.ssh:/home/1000/.ssh
+    tty: true   

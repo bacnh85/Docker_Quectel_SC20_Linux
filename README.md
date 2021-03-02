@@ -151,13 +151,13 @@ cd Docker_Quectel_SC20_Linux
 Then, start the docker container and go to the shell:
 
 ```
-sh start.sh
+docker exec -it -u $UID quectel-sc20-linux /bin/bash
 ```
 
 Inside the docker container, folder is organized as below:
 
 ```
-bacnh@17e4be739562:/opt$ tree -L 1
+1000@17e4be739562:/opt$ tree -L 1
 .
 ├── docker-compose.yml    
 ├── Dockerfile
@@ -185,7 +185,7 @@ For Mac users, there could be many errors due to different file system, ... , vo
 Therefore, folder is oragnized as below:
 
 ```
-bacnh@17e4be739562:/opt$ tree -L 1
+1000@17e4be739562:/opt$ tree -L 1
 .
 ├── build                 <-- Volume mount folder     (for Mac users)
 ├── deploy                <-- Output of build process (for Mac users)
@@ -241,7 +241,7 @@ $ sh sh script/sync.sh
 Content inside deploy folder look like this:
 
 ```
-bacnh@17e4be739562:/opt$ tree deploy -L 1
+1000@17e4be739562:/opt$ tree deploy -L 1
 deploy
 ├── images
 ├── ipk

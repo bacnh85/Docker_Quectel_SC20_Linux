@@ -15,6 +15,8 @@ chown $UID:$GID /opt
 
 # Clone Linux SDK
 if [ ! -d SDK/ ]; then
+  echo "SC20 Linux SDK is not existed. Getting from main stream gitlab.quectel.com ... "
+
   # Add gitlab key
   if [ ! $(grep [gitlab.quectel.com]:2222 /home/$UID/.ssh/known_hosts) > /dev/null ]; then
     su - $UID -c  "echo \"[gitlab.quectel.com]:2222,[47.254.29.35]:2222 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNbJZePD6lvNZJ4ewix79Pg3Yt07lh4BotfiKPL57CMfEaAqdUGn3Ed0JrRDVlvkGfLAvK2mVKgxCZs1w/LbYR8=\" >> ~/.ssh/known_hosts"

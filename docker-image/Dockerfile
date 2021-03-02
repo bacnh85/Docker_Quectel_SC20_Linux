@@ -3,14 +3,13 @@ FROM ubuntu:16.04
 # Docker variables
 ARG UID=1000
 ARG GID=1000
-ARG UNAME=bacnh
 
 # Update packages
 RUN rm /bin/sh && ln -s bash /bin/sh \ 
      # add user package
      && apt-get update \
      && apt-get install -y software-properties-common \ 
-     && add-apt-repository ppa:openjdk-r/ppa \
+     && add-apt-repository ppa:openjdk/ppa \
      &&  apt-get update && apt-get install -y \
 	gawk wget git-core diffstat unzip texinfo gcc-multilib \
      build-essential chrpath socat cpio python3 python3-pip python3-pexpect \
